@@ -242,15 +242,22 @@
 </script>
 
 <script>
-  const scriptURL = 'https://script.google.com/macros/s/AKfycbzPBZEhEkCGxLriEjgmxO6S6i8Y5r_EJMIWIJvnc9iPF0kLBRWvOQ6xrmDz-jbyQJfk/exec';
-  const form = document.forms['submit-to-google-sheet']
+const scriptURL = 'https://script.google.com/macros/s/AKfycbyUvgaUF8bXZtVUligrd9ic86FFCaS525o5JE-UCH4Kxy5hgW1NsbxsxPh_XtQYv6j4yQ/exec';
+const form = document.forms['submit-to-google-sheet'];
+const msgElement = document.getElementById('msg');  
 
-  form.addEventListener('submit', e => {
-    e.preventDefault()
-    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-      .then(response => console.log('Success!', response))
-      .catch(error => console.error('Error!', error.message))
-  })
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+    .then(response => {
+      msgElement.textContent = "Form submitted successfully!";  
+      console.log('Success!', response);
+    })
+    .catch(error => {
+      msgElement.textContent = "Submission failed. Please try again.";  
+      console.error('Error!', error.message);
+    });
+});
 </script>
   </body>
 </html>
